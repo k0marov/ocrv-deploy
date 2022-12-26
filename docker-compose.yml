@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+    nginx: 
+        image: nginx
+        restart: unless-stopped
+        ports:
+            - 8003:80
+        volumes:
+            - ./nginx:/etc/nginx/conf.d
+            - ./ocrv:/static 
+        depends_on: 
+            - backend
+            - frontend
+
+    backend:
+        restart: unless-stopped
+        env_file: 
+            backend_env
+        environment: 
+            OCRV_RECORDER_RECORDINGS_URL=/recordings/
+            OCRV_RECORDER_STATIC_URL=/django_static/
+            OCRV_RECORDER_STATIC_ROOT=./var/django_static
+        build:
+            context: ./backendV2
+            dockerfile: ./deploy/Dockerfile
+        volumes:
+            - ./ocrv:/app/var
+        
+
+    frontend:
+        restart: unless-stopped
+        build:
+            context: ./web-frontend
+            dockerfile: ./Dockerfile
