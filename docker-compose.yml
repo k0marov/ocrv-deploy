@@ -5,7 +5,7 @@ services:
         image: nginx
         restart: unless-stopped
         ports:
-            - 8003:80
+            - $OCRV_RECORDER_MAIN_PORT:80
         volumes:
             - ./nginx:/etc/nginx/conf.d
             - ./ocrv:/static 
