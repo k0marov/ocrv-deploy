@@ -8,8 +8,8 @@ services:
             - $OCRV_RECORDER_MAIN_PORT:80
         volumes:
             - ./nginx:/etc/nginx/conf.d
-            - ./ocrv/served:/served
-            - ./ocrv/recordings:/served/recordings
+            - $OCRV_BASE_DIR/served:/served
+            - $OCRV_BASE_DIR/recordings:/served/recordings
         depends_on: 
             - backend
             - frontend
@@ -30,7 +30,7 @@ services:
             context: ./backendV2
             dockerfile: ./deploy/Dockerfile
         volumes:
-            - ./ocrv:/app/var
+            - $OCRV_BASE_DIR:/app/var
 
     frontend:
         restart: unless-stopped
