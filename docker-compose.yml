@@ -18,9 +18,14 @@ services:
         env_file: 
             backend_env
         environment: 
-            OCRV_RECORDER_RECORDINGS_URL=/recordings/
-            OCRV_RECORDER_STATIC_URL=/django_static/
-            OCRV_RECORDER_STATIC_ROOT=./var/django_static
+            - OCRV_RECORDER_RECORDINGS_URL=/recordings/
+            - OCRV_RECORDER_STATIC_URL=/app/var/django_static/
+            - OCRV_RECORDER_STATIC_ROOT=/app/var/django_static
+            - OCRV_RECORDER_TEXTS_PATH=/app/var/texts.csv
+            - OCRV_RECORDER_RECORDINGS_DIR=/app/var/recordings/
+            - OCRV_RECORDER_LOG_PATH=/app/var/logs.log
+            - OCRV_RECORDER_DB_PATH=/app/var/db.sqlite3
+
         build:
             context: ./backendV2
             dockerfile: ./deploy/Dockerfile
