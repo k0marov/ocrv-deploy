@@ -1,4 +1,5 @@
+.env
+backend_env
 backendV2
 web-frontend
 ocrv
-backend_env
